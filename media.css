@@ -1,0 +1,88 @@
+@media only screen and (min-width: 769px) {
+  .header button {
+    display: none !important;
+  }
+  .left-side,
+  .right-side {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+  .header .logo, .right-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    a{
+        padding-right: .875rem;
+        text-decoration: none;
+        color: var(--Gray);
+    }
+  }
+
+  .header .logo .left-side>:hover,.right-side>a:hover{
+    color: hsl(260, 3%, 45%);
+    transition: .3s ease-in-out;
+  }
+  .description-container{
+    flex-direction: row;
+    margin-bottom: 5rem;
+  }
+  .description{
+    padding: 2rem;
+    text-align: start;
+  }
+  .description>p{
+    text-align: start;
+    padding: 0 10rem 0 0;
+  }
+  
+  .description>h1{
+    font-size: 4rem;
+    text-align: start;
+    line-height: 4rem;
+  }
+  .shorter-container{
+   margin: -2rem;
+   padding: 2rem;
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translate(-50%,50%);
+   width: 80%;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
+  }
+  .shorter-container button{
+    width: 200px;
+    height: 50px;
+    margin-top: -10px;
+  }
+  .section{
+    padding-top: 7rem;
+  }
+  .statistics{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .vertical-line{
+    display: none;
+  }
+  .statistics-data{
+    width: 400px;
+  }
+  .business h2{
+    font-size: 3rem;
+  }
+  .footer{
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
+  .footer .shortly{
+    margin-top: 0;
+  }
+
+}
