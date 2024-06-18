@@ -16,24 +16,26 @@ document.getElementById("short").addEventListener("click", () => {
         var ulist = document.getElementsByTagName("ul");
         var li = document.createElement("li"); //Elemento que vai conter os elementos do link original e o encurtado
         li.className = "link-list";
-        const originalLink = document.createElement("li"); //Vai conter o elemento original
+        const originalLink = document.createElement("div"); //Vai conter o elemento original
         originalLink.className = "toShort";
         originalLink.textContent = link;
-        const shortedLink = document.createElement("li"); //Vai conter o elemento encurtado
+        const shortedLink = document.createElement("div"); //Vai conter o elemento encurtado
         shortedLink.className = "shorted-link";
         const a = document.createElement("a");
         a.href = data;
         a.textContent = data;
         shortedLink.appendChild(a);
+        const btn = document.createElement("button");
+        btn.textContent = "Copy";
         li.appendChild(originalLink);
         li.appendChild(shortedLink);
+        shortedLink.appendChild(btn);
         ulist[0].appendChild(li);
       });
 
       console.log(link);
     }
   }
-
   async function shortLink(link) {
     const headers = {
       "api-key": "EF9GgPn3wQi97dAGh6PUWx4yY5dxUJq1fuqTzb8emLinO",
@@ -61,7 +63,6 @@ document.getElementById("short").addEventListener("click", () => {
       return null;
     }
   }
-
   function errorFunc(req, message) {
     const divControl = req.parentElement;
     const p = divControl.querySelector("P");
@@ -78,3 +79,9 @@ document.getElementById("short").addEventListener("click", () => {
 
   getLink(link);
 });
+
+function SaveLinkToLocalStorage(link) {
+  const links = JSON.parse(localStorage.getItem("links")) || [];
+  links.push(link);
+  localStorage.setItem("links", JSON.stringify(links));
+}
