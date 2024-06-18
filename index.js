@@ -1,4 +1,5 @@
 console.log("Hi, Dev!");
+const btn = document.createElement("button");
 document.getElementById("short").addEventListener("click", () => {
   const inputForm = document.getElementById("input");
   const link = inputForm.value.trim();
@@ -81,19 +82,29 @@ function createListItem(originalLink, shortenedLink) {
   const a = document.createElement("a");
   a.href = shortenedLink;
   a.textContent = shortenedLink;
-  const btn = document.createElement("button");
   btn.textContent = "Copy";
+  //fazer hover no btn
+  btn.addEventListener("mouseover", () => {
+    btn.style = "background-color: #3A3053; transition:.3s ease-in-out;";
+  });
+  btn.addEventListener("mouseout", () => {
+    btn.style = "background-color: #2BD0D2; transition:.3s ease-in-out;";
+  });
+  //fazer click no btn
+  btn.addEventListener("click", () => {
+    copyLink(shortenedLink);
+  });
   shortedLinkDiv.appendChild(a);
   shortedLinkDiv.appendChild(btn);
   li.appendChild(originalLinkDiv);
   li.appendChild(shortedLinkDiv);
   return li;
 }
-function SaveLinkToLocalStorage(originallink, shortenedLink) {
+function SaveLinkToLocalStorage(originallink, shortenedlink) {
   let links = JSON.parse(localStorage.getItem("links")) || [];
   links.push({
     originallink,
-    shortenedLink,
+    shortenedlink,
   });
   localStorage.setItem("links", JSON.stringify(links));
 }
@@ -102,9 +113,16 @@ function getLinksFromLocalStorage() {
   let links = JSON.parse(localStorage.getItem("links")) || [];
   var ulist = document.querySelector(".ulink");
   links.forEach((link) => {
-    var li = createListItem(link.originalLinkElem, link.shortedLinkElem); //Elemento que vai conter os elementos do link original e o encurtado
+    var li = createListItem(link.originallink, link.shortenedlink); //Elemento que vai conter os elementos do link original e o encurtado
     ulist.appendChild(li);
   });
 }
 
-document.body.addEventListener("DOMContentLoad", getLinksFromLocalStorage());
+function copyLink(Textlink) {
+  navigator.clipboard.writeText(Textlink);
+  btn.innerText = "Copied!";
+  btn.disabled = true;
+  btn.style = "background-color: #3A3053; transition: .3s ease-in-out;";
+}
+
+document.addEventListener("DOMContentLoad", getLinksFromLocalStorage());
