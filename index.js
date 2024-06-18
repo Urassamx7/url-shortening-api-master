@@ -12,25 +12,15 @@ document.getElementById("short").addEventListener("click", () => {
     } else {
       sucFunc(inputForm);
       shortLink(link).then((data) => {
-        console.log(data);
-        var ulist = document.getElementsByTagName("ul");
-        var li = document.createElement("li"); //Elemento que vai conter os elementos do link original e o encurtado
-        li.className = "link-list";
-        const originalLink = document.createElement("div"); //Vai conter o elemento original
-        originalLink.className = "toShort";
-        originalLink.textContent = link;
-        const shortedLink = document.createElement("div"); //Vai conter o elemento encurtado
-        shortedLink.className = "shorted-link";
-        const a = document.createElement("a");
-        a.href = data;
-        a.textContent = data;
-        shortedLink.appendChild(a);
-        const btn = document.createElement("button");
-        btn.textContent = "Copy";
-        li.appendChild(originalLink);
-        li.appendChild(shortedLink);
-        shortedLink.appendChild(btn);
-        ulist[0].appendChild(li);
+        if (data) {
+          console.log(data);
+          var ulist = document.querySelector(".ulink");
+          if (ulist) {
+            const li = createListItem(link, data);
+            ulist.appendChild(li);
+            SaveLinkToLocalStorage(link, data);
+          }
+        }
       });
 
       console.log(link);
@@ -80,8 +70,38 @@ document.getElementById("short").addEventListener("click", () => {
   getLink(link);
 });
 
-function SaveLinkToLocalStorage(link) {
-  const links = JSON.parse(localStorage.getItem("links")) || [];
-  links.push(link);
+function createListItem(originalLink, shortenedLink) {
+  var li = document.createElement("li"); //Elemento que vai conter os elementos do link original e o encurtado
+  li.className = "link-list";
+  const originalLinkDiv = document.createElement("div"); //Vai conter o elemento original
+  originalLinkDiv.className = "toShort";
+  originalLinkDiv.textContent = originalLink;
+  const shortedLinkDiv = document.createElement("div"); //Vai conter o elemento encurtado
+  shortedLinkDiv.className = "shorted-link";
+  const a = document.createElement("a");
+  a.href = shortenedLink;
+  a.textContent = shortenedLink;
+  shortedLinkDiv.appendChild(a);
+  li.appendChild(originalLinkDiv);
+  li.appendChild(shortedLinkDiv);
+  return li;
+}
+function SaveLinkToLocalStorage(originallink, shortenedLink) {
+  let links = JSON.parse(localStorage.getItem("links")) || [];
+  links.push({
+    originallink,
+    shortenedLink,
+  });
   localStorage.setItem("links", JSON.stringify(links));
 }
+
+function getLinksFromLocalStorage() {
+  let links = JSON.parse(localStorage.getItem("links")) || [];
+  var ulist = document.querySelector(".ulink");
+  links.forEach((link) => {
+    var li = createListItem(link.originalLinkElem, link.shortedLinkElem); //Elemento que vai conter os elementos do link original e o encurtado
+    ulist.appendChild(li);
+  });
+}
+
+document.body.addEventListener("DOMContentLoad", getLinksFromLocalStorage());

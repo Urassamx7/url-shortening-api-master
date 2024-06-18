@@ -158,6 +158,8 @@ body {
   font-size: 1.125rem;
   font-weight: 500;
   border-bottom: 0.1px solid hsl(255, 11%, 22%);
+  text-wrap: pretty;
+  word-wrap: break-word;
 }
 .shorted-link {
   display: flex;
