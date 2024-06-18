@@ -381,3 +381,11 @@ ul {
   font-weight: 700;
   text-decoration: none;
 }
+@media screen and (max-width:768px) {
+  .img-container > img {
+    max-width: 768px !important;
+    height: auto;
+    object-fit: contain;
+    width: 100%;
+  }
+}

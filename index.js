@@ -14,14 +14,14 @@ document.getElementById("short").addEventListener("click", () => {
       shortLink(link).then((data) => {
         console.log(data);
         var ulist = document.getElementsByTagName("ul");
-        var li = document.createElement("li");//Elemento que vai conter os elementos do link original e o encurtado
+        var li = document.createElement("li"); //Elemento que vai conter os elementos do link original e o encurtado
         li.className = "link-list";
-        const originalLink = document.createElement("li");//Vai conter o elemento original
+        const originalLink = document.createElement("li"); //Vai conter o elemento original
         originalLink.className = "toShort";
-        const shortedLink = document.createElement("li");//Vai conter o elemento encurtado
+        const shortedLink = document.createElement("li"); //Vai conter o elemento encurtado
         shortedLink.className = "shorted-link";
-        li[0].appendChild(originalLink);
-        li[0].appendChild(shortedLink);
+        li.appendChild(originalLink);
+        li.appendChild(shortedLink);
         ulist[0].appendChild(li);
       });
 
@@ -31,26 +31,27 @@ document.getElementById("short").addEventListener("click", () => {
 
   async function shortLink(link) {
     const headers = {
-      "Content-Type": "aplication/json",
+      "Content-Type": "application/json",
     };
     const body = JSON.stringify({
       url: link,
     });
 
     try {
-      fetch(apiUrl, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: headers,
         body: body,
       });
       if (!response.ok) {
-        throw new Error(`Erro: ${response.status}`);
+        throw new Error(`Erro: ${response.status} - ${response.statusText}`);
       }
 
       const data = await response.json();
       return data.shortened_url;
     } catch (e) {
       console.log(e.message);
+      return null;
     }
   }
 
@@ -68,5 +69,5 @@ document.getElementById("short").addEventListener("click", () => {
     req.className = "success";
   }
 
-  getLink(link)
+  getLink(link);
 });
