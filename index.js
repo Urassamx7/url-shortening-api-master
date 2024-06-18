@@ -81,7 +81,10 @@ function createListItem(originalLink, shortenedLink) {
   const a = document.createElement("a");
   a.href = shortenedLink;
   a.textContent = shortenedLink;
+  const btn = document.createElement("button");
+  btn.textContent = "Copy";
   shortedLinkDiv.appendChild(a);
+  shortedLinkDiv.appendChild(btn);
   li.appendChild(originalLinkDiv);
   li.appendChild(shortedLinkDiv);
   return li;
