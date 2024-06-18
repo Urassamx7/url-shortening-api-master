@@ -3,7 +3,7 @@ document.getElementById("short").addEventListener("click", () => {
   const inputForm = document.getElementById("input");
   const link = inputForm.value.trim();
   const msgerror = "Introduza um link";
-  const apiUrl = "https://api.cleanuir.com/v1/shorten"; // Link do encurtador
+  const apiUrl = "https://shrtlnk.dev/api/v2/link"; // Link do encurtador
 
   function getLink(link) {
     //Validação do campo!!
@@ -18,8 +18,13 @@ document.getElementById("short").addEventListener("click", () => {
         li.className = "link-list";
         const originalLink = document.createElement("li"); //Vai conter o elemento original
         originalLink.className = "toShort";
+        originalLink.textContent = link;
         const shortedLink = document.createElement("li"); //Vai conter o elemento encurtado
         shortedLink.className = "shorted-link";
+        const a = document.createElement("a");
+        a.href = data;
+        a.textContent = data;
+        shortedLink.appendChild(a);
         li.appendChild(originalLink);
         li.appendChild(shortedLink);
         ulist[0].appendChild(li);
@@ -31,6 +36,8 @@ document.getElementById("short").addEventListener("click", () => {
 
   async function shortLink(link) {
     const headers = {
+      "api-key": "EF9GgPn3wQi97dAGh6PUWx4yY5dxUJq1fuqTzb8emLinO",
+      Accept: "application/json",
       "Content-Type": "application/json",
     };
     const body = JSON.stringify({
@@ -48,7 +55,7 @@ document.getElementById("short").addEventListener("click", () => {
       }
 
       const data = await response.json();
-      return data.shortened_url;
+      return data.shrtlnk;
     } catch (e) {
       console.log(e.message);
       return null;
