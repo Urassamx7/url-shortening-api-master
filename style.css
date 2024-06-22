@@ -23,6 +23,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .container {
   max-width: 1440px !important;
@@ -383,14 +384,66 @@ ul {
   font-weight: 700;
   text-decoration: none;
 }
-button:hover{
+button:hover {
   cursor: pointer;
 }
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .img-container > img {
     max-width: 768px !important;
     height: auto;
     object-fit: contain;
     width: 100%;
   }
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border: none;
+  display: none; /* Oculto por padrão */
+}
+.mobile-menu-view{
+  width: 300px;
+  background-color: var(--Dark_Violet);
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  padding: 1rem;
+}
+.mobile-menu-view >a{
+  margin-top: 1rem;
+  text-decoration: none;
+  color: #FFF;
+}
+.mobile-menu-view >a:nth-child(3){
+  margin-bottom: 1rem;
+}
+.mobile-menu-view >a:nth-child(4){
+  padding-top: .5rem;
+  border-top: 1px solid #FFF;
+  width: 90%;
+  text-align: center;
+
+}
+.mobile-menu-view >a:nth-child(5){
+  padding:1rem;
+  background-color: var(--Cyan);
+  border-radius: 20px;
+  width: 250px;
+  text-align: center;
+
+}
+.noflow{
+  overflow: hidden;
 }

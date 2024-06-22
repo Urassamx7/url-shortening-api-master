@@ -119,10 +119,47 @@ function getLinksFromLocalStorage() {
 }
 
 function copyLink(Textlink) {
-  navigator.clipboard.writeText(Textlink);
-  btn.innerText = "Copied!";
-  btn.disabled = true;
-  btn.style = "background-color: #3A3053; transition: .3s ease-in-out;";
+  if (navigator.clipboard.writeText(Textlink)) {
+    btn.innerText = "Copied!";
+    btn.disabled = true;
+    btn.style = "background-color: #3A3053; transition: .3s ease-in-out;";
+  }
 }
+
+document.querySelector("#menuHamb").addEventListener("click", () => {
+  var overlay = document.querySelector(".overlay");
+  overlay.style = "display:flex";
+
+  const menuView = document.createElement("div");
+  menuView.className = "mobile-menu-view";
+
+  const features = document.createElement("a");
+  features.href = "#";
+  features.textContent = "Features";
+  const pricing = document.createElement("a");
+  pricing.href = "#";
+  pricing.textContent = "Pricing";
+  const res = document.createElement("a");
+  res.href = "#";
+  res.textContent = "Resources";
+  const log = document.createElement("a");
+  log.href = "#";
+  log.textContent = "Login";
+  const sign = document.createElement("a");
+  sign.href = "#";
+  sign.textContent = "Sign Up";
+  menuView.appendChild(features);
+  menuView.appendChild(res);
+  menuView.appendChild(pricing);
+  menuView.appendChild(log);
+  menuView.appendChild(sign);
+  overlay.appendChild(menuView);
+  document.body.classList.add("noflow")
+  overlay.addEventListener("click", () => {
+    overlay.style = "display:none";
+    menuView.style = "display:none";
+    document.body.classList.remove("noflow")
+  });
+});
 
 document.addEventListener("DOMContentLoad", getLinksFromLocalStorage());
